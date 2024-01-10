@@ -1,0 +1,17 @@
+.bar{
+    display: flex;
+    height: 90px;
+    align-items: end;
+}
+
+.info-title{
+    font-size: 20px;
+    color: #7B7B7B;
+}
+.info-description{
+    font-size: 14px;
+}
+.status-title{
+    font-size: 20px;
+    font-weight: 600;
+}
