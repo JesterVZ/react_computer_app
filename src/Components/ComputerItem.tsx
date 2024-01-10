@@ -2,6 +2,7 @@ import { FC } from "react";
 import { IComputer } from "../Types/Response";
 import Card from "./Card";
 import './ComputerItem.css'
+import Switch from "./Switch";
 
 interface ComputerItemProps {
     item: IComputer;
@@ -15,6 +16,9 @@ const ComputerItem: FC<ComputerItemProps> = (props) => {
                     <div className="status-title">
                         Connected
                     </div>
+                    <Switch onChanged={
+                        (value) => console.log(value)
+                    } />
                 </div>
                 <div className="info">
                     <div className="info-title">
