@@ -8,10 +8,13 @@ const App = () => {
     
     const [computer, setComputer] = useState<IComputer[]>([]);
     const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState<string | undefined>();
 
     useEffect(() => {
         fetchComputers()
     }, []);
+
+    
 
     async function fetchComputers(){
         try{
@@ -22,12 +25,12 @@ const App = () => {
               });
             setComputer(response.data['content']);
         }catch(e){
-            alert(e);
+            setError('Error while fetching computers list.');
         }
     }
 
     return(
-        <List items={computer} renderItem={(computer: IComputer) => <ComputerItem key={computer.id} item={computer} />}/>
+        <List items={computer} renderItem={(computer: IComputer) => <ComputerItem key={computer.id} item={computer}/>}/>
     );
 }
 

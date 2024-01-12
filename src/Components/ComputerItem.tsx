@@ -1,14 +1,34 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { IComputer } from "../Types/Response";
 import Card from "./Card";
 import './ComputerItem.css'
 import Switch from "./Switch";
+import axios from "axios";
+import Loading from "./Loading";
 
 interface ComputerItemProps {
     item: IComputer;
 }
 
 const ComputerItem: FC<ComputerItemProps> = (props) => {
+    const[loading, setLoading] = useState<boolean>(false);
+
+    async function activateDevice(computerId: number){
+        try{
+            const params = {
+                id: computerId
+            }
+            await axios({
+                method: 'post',
+                url: 'http://10.8.0.6:8080/api/v1/activateDevice',
+                params: params
+              });
+        }catch(e){
+            alert(e);
+        }
+        setLoading(false);
+    }
+    
     return(
         <Card>
             <div className="bar">
@@ -16,9 +36,7 @@ const ComputerItem: FC<ComputerItemProps> = (props) => {
                     <div className="status-title">
                         Connected
                     </div>
-                    <Switch onChanged={
-                        (value) => console.log(value)
-                    } />
+                    {loading ? <Loading width='20px' height='20px' /> : <Switch onChanged = {() => {setLoading(true); activateDevice(props.item.id!)}} checked={props.item.inProcess} />}
                 </div>
                 <div className="info">
                     <div className="info-title">
